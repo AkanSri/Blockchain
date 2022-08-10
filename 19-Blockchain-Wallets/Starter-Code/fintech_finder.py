@@ -27,6 +27,7 @@
 # Imports
 import streamlit as st
 import pandas as pd
+from pathlib import Path
 from dataclasses import dataclass
 from typing import Any, List
 from web3 import Web3
@@ -94,7 +95,10 @@ candidate_database = [
     ["Kendall", "0x8fD00f170FDf3772C5ebdCD90bF257316c69BA45", "4.1", .16, "Images/kendall.jpeg"]
 ]
 
-candidate_df = pd.DataFrame(candidate_database, columns = {"Name", "Digital Address", "Rating", "Hourly Cost Per Ether","Image"})
+candidate_df = pd.DataFrame(candidate_database, columns = ["Name", "Digital Address", "Rating", "Hourly Rate","Image"])
+candidate_df = candidate_df.set_index("Name")
+
+people = candidate_df.index.values
 
 def get_people():
     """Display the database of Fintech Finders candidate information."""
@@ -103,10 +107,10 @@ def get_people():
         cols = st.columns(2)
         cols[0].image(row["Image"], width=200)
         cols[1].write(f"""
-        Name: {db_list[number][0]} \n 
-        Ethereum Account Address: {db_list[number][1]} \n
-        FinTech Finder Rating: {db_list[number][2]} \n
-        Hourly Rate per Ether: {db_list[number][3]} eth \n """)
+        Name: {index} \n 
+        Ethereum Account Address: {row["Digital Address"]} \n
+        FinTech Finder Rating: {row["Rating"]} \n
+        Hourly Rate per Ether: {row["Hourly Rate"]} eth \n """)
 
 ################################################################################
 # Streamlit Code
@@ -158,19 +162,19 @@ hours = st.sidebar.number_input("Number of Hours")
 st.sidebar.markdown("## Candidate Name, Hourly Rate, and Ethereum Address")
 
 # Identify the FinTech Hire candidate
-candidate = candidate_database[person][0]
+candidate = str(person)
 
 # Write the Fintech Finder candidate's name to the sidebar
-st.sidebar.write(candidate)
+st.sidebar.write(str(person))
 
 # Identify the FinTech Finder candidate's hourly rate
-hourly_rate = candidate_database[person][3]
+hourly_rate = candidate_df.loc[str(person)]["Hourly Rate"]
 
 # Write the inTech Finder candidate's hourly rate to the sidebar
 st.sidebar.write(hourly_rate)
 
 # Identify the FinTech Finder candidate's Ethereum Address
-candidate_address = candidate_database[person][1]
+candidate_address = candidate_df.loc[str(person)]["Digital Address"]
 
 # Write the inTech Finder candidate's Ethereum Address to the sidebar
 st.sidebar.write(candidate_address)
@@ -236,7 +240,7 @@ st.sidebar.markdown("## Total Wage in Ether")
 # Calculate total `wage` for the candidate by multiplying the candidate’s hourly
 # rate from the candidate database (`candidate_database[person][3]`) by the
 # value of the `hours` variable
-wage = candidate_database[person][3] * hours
+wage = float(hourly_rate) * hours
 
 # @TODO
 # Write the `wage` calculation to the Streamlit sidebar
