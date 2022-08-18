@@ -39,8 +39,8 @@ Successfully Compiled:</br>
 - Have the `KaseiCoinCrowdsaleDeployer` renounce its minter role.
 
 ### Step 4. Deployed and Tested the Crowdsale on a Local Blockchain
-Video for Testing:
-![vid1](https://drive.google.com/file/d/1y-7kHcTDw3ukWnWbbL4HOFurNpvLPfbA/view?usp=sharing)
+Video for Testing:</br>
+[vid1](https://drive.google.com/file/d/1y-7kHcTDw3ukWnWbbL4HOFurNpvLPfbA/view?usp=sharing)
 
 ### Step 5. Extended the Crowdsale Contract by Using OpenZeppelin
 - I added to the crowdsale contract to enhance its functionality by using the following OpenZeppelin contracts:
@@ -51,6 +51,6 @@ Video for Testing:
     * The `uint goal` parameter: The amount of ether that you hope to raise during the crowdsale&mdash;that is, the goal of the crowdsale.
     * The `uint open` parameter: The opening time for the crowdsale.
     * The `uint close` parameter: The closing time for the crowdsale.
-Video for Testing:
-![vid2](https://drive.google.com/file/d/1MDRmjYoEBfPVCQDqE5X4cHQMPMfwLb06/view?usp=sharing)
+Video for Testing:</br>
+[vid2](https://drive.google.com/file/d/1MDRmjYoEBfPVCQDqE5X4cHQMPMfwLb06/view?usp=sharing)
 
